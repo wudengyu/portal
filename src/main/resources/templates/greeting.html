@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
     <title>Getting Started: Serving Web Content</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <h1>Hello,World!你好，世界</h1>
+    <p th:text="'Hello, ' + ${name} + '!'" />
 </body>
 </html>
