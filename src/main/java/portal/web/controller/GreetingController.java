@@ -1,4 +1,4 @@
-package portal.controller;
+package portal.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

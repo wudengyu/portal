@@ -15,7 +15,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("portal.controller")
+@ComponentScan("portal.web")
 public class WebConfig implements WebMvcConfigurer {
     /* ******************************************************************* */
     /*  GENERAL CONFIGURATION ARTIFACTS                                    */
@@ -28,6 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
         registry.addResourceHandler("/ckeditor/**").addResourceLocations("/ckeditor/");
+        registry.addResourceHandler("/bootstrap/**").addResourceLocations("/bootstrap/");
     }
 
     @Bean

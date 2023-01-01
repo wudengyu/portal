@@ -1,10 +1,13 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
 <head> 
-    <title>Getting Started: Serving Web Content</title> 
+    <title>Bootstrap demo</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
     <h1>Hello,World!你好，世界</h1>
+    <script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
