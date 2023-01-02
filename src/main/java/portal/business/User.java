@@ -43,10 +43,6 @@ public class User  implements UserDetails{
         return this.authorities;
     }
 
-    
-
-    
-
     @Override
     public boolean isAccountNonExpired() {
         return false;
