@@ -5,15 +5,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import portal.repository.UserRepository;
 import portal.security.UserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     @Autowired
-    public UserService userService;
+    public UserRepository userRepository;
+
+    @Bean
+    public static PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -30,7 +38,7 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .permitAll()
                 .and()
-            .userDetailsService(userService);
+            .userDetailsService(new UserService(userRepository));
         return http.build();
     }
 
