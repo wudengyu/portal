@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -18,7 +17,6 @@ import org.springframework.transaction.TransactionManager;
 
 @Configurable
 @ComponentScan(basePackages={"portal"},excludeFilters={@Filter(type=FilterType.REGEX,pattern={"portal.web"})})
-@EnableJdbcRepositories
 public class RootConfig {
     @Bean
     public JndiObjectFactoryBean dataSource(){

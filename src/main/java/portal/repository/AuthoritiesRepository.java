@@ -1,7 +1,7 @@
 package portal.repository;
 
-import java.util.Set;
+import java.util.List;
 
 public interface AuthoritiesRepository {
-    Set<String> readByUsername(String username);
+    List<String> findByUsername(String username);
 }

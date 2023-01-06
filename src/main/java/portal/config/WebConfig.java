@@ -29,12 +29,12 @@ public class WebConfig implements WebMvcConfigurer {
     }
     
     @Override
-    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/images/**").addResourceLocations("/images/");
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
-        registry.addResourceHandler("/ckeditor/**").addResourceLocations("/ckeditor/");
-        registry.addResourceHandler("/bootstrap/**").addResourceLocations("/bootstrap/");
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/images/**").addResourceLocations("/resources/images/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
+        registry.addResourceHandler("/ckeditor/**").addResourceLocations("/resources/ckeditor/");
+        registry.addResourceHandler("/bootstrap/**").addResourceLocations("/resources/bootstrap/");
     }
 
     @Bean
