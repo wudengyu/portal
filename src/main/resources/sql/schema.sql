@@ -28,7 +28,7 @@ create table if not exists employees
     name     varchar(10) not null comment '姓名',
     phone    char(11)    null comment '手机号码',
     username varchar(50) null comment '用户名',
-    rank     int         not null default 99999 comment '排序权重'
+    position int         not null default 99999 comment '排序权重'
 ) comment '员工';
 drop table if exists dept_manager;
 create table if not exists dept_manager
@@ -99,7 +99,19 @@ create table if not exists category(
     description varchar(100) comment '说明',
     code_tax varchar(11) comment '税务资产分类代码'
 )comment '资产分类代码';
-
+drop table if exists menu;
+create table if not exists menu(
+    id  int not null primary key auto_increment,
+    name varchar(10) not null
+)comment '菜单';
+drop table if exists menu_item;
+create table if not exists menu_item
+(
+    id  int not null primary key auto_increment,
+    menu_id int,
+    text    varchar(10)  not null,
+    url     varchar(100) not null,
+    parent  int,
+    foreign key (menu_id) references menu (id)
+)comment '菜单项';
 set foreign_key_checks = 1;
-insert users (username,password) values('admin','{bcrypt}$2a$10$cuR/B35c8kSEodDPUWl48.EaX9FVjXjGB22AF/dyP3bBrLwQtVPCa');
-select * from users;
