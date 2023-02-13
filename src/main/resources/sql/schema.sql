@@ -110,7 +110,7 @@ create table if not exists menu_item
     id  int not null primary key auto_increment,
     menu_id int,
     text    varchar(10)  not null,
-    url     varchar(100) not null,
+    url     varchar(100) not null default '#',
     parent  int,
     foreign key (menu_id) references menu (id)
 )comment '菜单项';

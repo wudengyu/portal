@@ -1,0 +1,16 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
+<head> 
+    <title>Show Menu</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/resources/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+    <ul class="nav" th:each="item:${menu}">
+        <li class="nav-item" th:text="${item.text}"></li>
+        <ul th:each="childitem:${item.child}" th:if="${not #lists.isEmpty(item.child)}">
+            <li class="nav-item" th:text="${childitem.text}"></li>
+        </ul>
+    </ul>
+</body>

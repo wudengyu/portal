@@ -442,3 +442,38 @@ INSERT INTO portal.asset_category_tax (code, parent, name) VALUES ('107070', '�
 INSERT INTO portal.asset_category_tax (code, parent, name) VALUES ('107070', '支撑软件', '10707');
 INSERT INTO portal.asset_category_tax (code, parent, name) VALUES ('107070', '应用软件', '10707');
 INSERT INTO portal.asset_category_tax (code, parent, name) VALUES ('107079', '其他计算机软', '10707');
+
+
+insert into menu (id,name) values (1,'Main Menu');
+insert into menu_item (id,menu_id,text) values (1,1,'新闻中心')
+insert into menu_item (id,menu_id,text) values (2,1,'领导讲话');
+insert into menu_item (id,menu_id,text) values (3,1,'政务公开');
+insert into menu_item (id,menu_id,text) values (4,1,'党风廉政');
+insert into menu_item (id,menu_id,text) values (5,1,'教育培训');
+insert into menu_item (id,menu_id,text) values (6,1,'党建工作');
+insert into menu_item (id,menu_id,text) values (7,1,'数字人事');
+insert into menu_item (menu_id,text,parent) values(1,'税务简报',1);
+insert into menu_item (menu_id,text,parent) values(1,'税务新闻',1);
+insert into menu_item (menu_id,text,parent) values(1,'媒体报道',1);
+insert into menu_item (menu_id,text,parent) values(1,'国内外新闻',1);
+insert into menu_item (menu_id,text,parent) values(1,'各地动态',1);
+insert into menu_item (menu_id,text,parent) values(1,'一句话新闻',1);
+insert into menu_item (menu_id,text,parent) values(1,'财务公开',3);
+insert into menu_item (menu_id,text,parent) values(1,'单位简介',3);
+insert into menu_item (menu_id,text,parent) values(1,'机构设置',3);
+insert into menu_item (menu_id,text,parent) values(1,'领导介绍',3);
+insert into menu_item (menu_id,text,parent) values(1,'干部人事',3);
+insert into menu_item (menu_id,text,parent) values(1,'税收执法',3);
+insert into menu_item (menu_id,text,parent) values(1,'收入分析',3);
+insert into menu_item (menu_id,text,parent) values(1,'法规制度',4);
+insert into menu_item (menu_id,text,parent) values(1,'警示教育',4);
+insert into menu_item (menu_id,text,parent) values(1,'学习园地',5);
+insert into menu_item (menu_id,text,parent) values(1,'专门业务培训',5);
+insert into menu_item (menu_id,text,parent) values(1,'知识更新培训',5);
+insert into menu_item (menu_id,text,parent) values(1,'任职培训',5);
+insert into menu_item (menu_id,text,parent) values(1,'教育实践活动',6);
+insert into menu_item (menu_id,text,parent) values(1,'党建工作动态',6);
+insert into menu_item (menu_id,text,parent) values(1,'三严三实',6);
+insert into menu_item (menu_id,text,parent) values(1,'党建研究',6);
+insert into menu_item (menu_id,text,parent) values(1,'两学一做',6);
+insert into menu_item (menu_id,text,parent) values(1,'党史学习教育',6);
