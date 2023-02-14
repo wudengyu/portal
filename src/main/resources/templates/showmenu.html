@@ -7,10 +7,15 @@
     <link th:href="@{/resources/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
-    <ul class="nav" th:each="item:${menu}">
-        <li class="nav-item" th:text="${item.text}"></li>
-        <ul th:each="childitem:${item.child}" th:if="${not #lists.isEmpty(item.child)}">
-            <li class="nav-item" th:text="${childitem.text}"></li>
-        </ul>
+    <ul class="nav">
+        <li class="nav-item" th:each="item:${menu}" th:classappend="${not #lists.isEmpty(item.child)}?'dropdown'" data-bs-toggle="dropdown">
+            <a class="nav-link" href="#" th:text="${item.text}"></a>
+            <ul class="dropdown-menu" th:if="${not #lists.isEmpty(item.child)}">
+                <li th:each="childitem:${item.child}">
+                    <a class="dropdown-item" href="#" th:text="${childitem.text}"></a>
+                </li>
+            </ul>
+        </li>
     </ul>
+    <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
 </body>
