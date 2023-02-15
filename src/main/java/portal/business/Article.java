@@ -1,6 +1,6 @@
 package portal.business;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Article {
     private int id;
@@ -8,11 +8,18 @@ public class Article {
     private String title;
     private String author;
     private Date lastmodifiedtime;
-    private String lastmodifieduser;
+    private User lastmodifieduser;
     private Date approvetime;
-    private String approver;
+    private User approver;
     private int status;
     private String content;
+
+    public Article(int id,String title,String author,Date lastmodifiedtime){
+        this.id=id;
+        this.title=title;
+        this.author=author;
+        this.lastmodifiedtime=lastmodifiedtime;
+    }
 
     public Article(int id,String title,String content){
         this.id=id;
@@ -40,7 +47,7 @@ public class Article {
         return lastmodifiedtime;
     }
 
-    public String getLastmodifieduser() {
+    public User getLastmodifieduser() {
         return lastmodifieduser;
     }
 
@@ -48,7 +55,7 @@ public class Article {
         return approvetime;
     }
 
-    public String getApprover() {
+    public User getApprover() {
         return approver;
     }
 
@@ -59,5 +66,5 @@ public class Article {
     public String getContent() {
         return content;
     }
-    
+
 }
