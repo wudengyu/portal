@@ -9,13 +9,6 @@
 </head>
 <body>
     <h1 th:text="${article.title}"></h1>
-    <form>
-        <textarea name="editor1" id="editor1" rows="10" cols="80" th:text="${article.content}">
-        </textarea>
-        <script>
-            CKEDITOR.replace( 'editor1')
-        </script>
-    </form>
-    <script th:src="@{/resources/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <div th:utext="${article.content}"></div>
 </body>
 </html>

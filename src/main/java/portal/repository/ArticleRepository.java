@@ -1,10 +1,12 @@
 package portal.repository;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import portal.business.Article;
 
 public interface ArticleRepository {
     Article loadById(int id);
-    List<Article> loadByColumnId(int columnid);
+    int countByColumnId(int columnid);
+    Page<Article> loadByColumnId(int columnid,Pageable paging);
 }

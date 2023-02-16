@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -31,15 +34,22 @@ public class JdbcArticleRepository implements ArticleRepository {
     }
 
     @Override
-    public List<Article> loadByColumnId(int columnid) {
-        return jdbcOperations.query("select aid,title,author,greatest(posttime,edittime) as lastmodifiedtime from p8_article where fid=?",new ColumnRowMapper(),columnid);
+    public int countByColumnId(int columnid) {
+        Integer total=jdbcOperations.queryForObject("select count(*) from p8_article where fid=?",Integer.class,columnid);
+        return total==null?0:total.intValue();
+    }
+
+    @Override
+    public Page<Article> loadByColumnId(int columnid,Pageable paging) {
+        List<Article> articles=jdbcOperations.query("select aid,title,author,from_unixtime(greatest(posttime,edittime)) as lastmodifiedtime from p8_article where fid=? limit ?,?",new ColumnRowMapper(),columnid,paging.getPageNumber()*paging.getPageSize(),paging.getPageSize());
+        return new PageImpl<>(articles,paging,countByColumnId(columnid));
     }
 
     private static final class ColumnRowMapper implements RowMapper<Article>{
 
         @Override
         public Article mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Article(rs.getInt("id"), rs.getString("title"),rs.getString("author"),rs.getDate("lastmodifiedtime"));
+            return new Article(rs.getInt("aid"), rs.getString("title"),rs.getString("author"),rs.getDate("lastmodifiedtime"));
         }        
     }
     

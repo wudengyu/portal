@@ -13,7 +13,7 @@
             <a class="nav-link" th:classappend="${not #lists.isEmpty(item.child)}?'dropdown-toggle'" data-bs-toggle="dropdown" href="#" th:text="${item.text}"></a>
             <ul class="dropdown-menu" th:if="${not #lists.isEmpty(item.child)}">
                 <li th:each="childitem:${item.child}">
-                    <a class="dropdown-item" href="#" th:text="${childitem.text}"></a>
+                    <a class="dropdown-item" th:href="@{${childitem.url}}" th:text="${childitem.text}"></a>
                 </li>
             </ul>
         </li>
