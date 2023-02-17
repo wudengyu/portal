@@ -40,8 +40,13 @@ public class JdbcArticleRepository implements ArticleRepository {
     }
 
     @Override
+    public List<Article> loadByColumnId(int columnid,int offset,int rows) {
+        return jdbcOperations.query("select aid,title,author,from_unixtime(greatest(posttime,edittime)) as lastmodifiedtime from p8_article where fid=? limit ?,?",new ColumnRowMapper(),columnid,offset,rows);
+    }
+
+    @Override
     public Page<Article> loadByColumnId(int columnid,Pageable paging) {
-        List<Article> articles=jdbcOperations.query("select aid,title,author,from_unixtime(greatest(posttime,edittime)) as lastmodifiedtime from p8_article where fid=? limit ?,?",new ColumnRowMapper(),columnid,paging.getPageNumber()*paging.getPageSize(),paging.getPageSize());
+        List<Article> articles=loadByColumnId(columnid,paging.getPageNumber()*paging.getPageSize(),paging.getPageSize());
         return new PageImpl<>(articles,paging,countByColumnId(columnid));
     }
 
@@ -52,5 +57,7 @@ public class JdbcArticleRepository implements ArticleRepository {
             return new Article(rs.getInt("aid"), rs.getString("title"),rs.getString("author"),rs.getDate("lastmodifiedtime"));
         }        
     }
+
+    
     
 }

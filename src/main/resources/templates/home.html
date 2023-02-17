@@ -1,13 +1,34 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
-<head> 
-    <title>Bootstrap demo</title> 
+
+<head>
+    <title>Portal</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link th:href="@{/resources/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 </head>
+
 <body>
-    <h1>Hello,World!你好，世界</h1>
-    <script th:src="@{/resources/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <nav>
+        <ul class="nav">
+            <li class="nav-item" th:each="item:${menu}" th:classappend="${not #lists.isEmpty(item.child)}?'dropdown'">
+                <a class="nav-link" th:classappend="${not #lists.isEmpty(item.child)}?'dropdown-toggle'"
+                    data-bs-toggle="dropdown" href="#" th:text="${item.text}"></a>
+                <ul class="dropdown-menu" th:if="${not #lists.isEmpty(item.child)}">
+                    <li th:each="childitem:${item.child}">
+                        <a class="dropdown-item" th:href="@{${childitem.url}}" th:text="${childitem.text}"></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <article>
+        <ul th:each="column:${columns}">
+            <h3 th:text="${column.title}"></h3>
+            <li th:each="article:${column.articlelist}">
+                <a th:href="@{'/article/show/'+${article.id}}" th:text="${article.title}"></a>
+            </li>
+        </ul>
+    </article>
+    <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
 </body>
-</html>

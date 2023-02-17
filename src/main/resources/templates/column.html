@@ -14,8 +14,9 @@
         </tr>
     </table>
     <ul>
-        <li th:text="${articles.totalElements}"></li>
-        <li th:text="${articles.totalPages}"></li>
+        <li th:each="page:${#numbers.sequence(1,articles.totalPages)}">
+            <a th:href="@{'?page='+${page}}" th:text="${page}"></a>
+        </li>
     </ul>
     <script th:src="@{/resources/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
