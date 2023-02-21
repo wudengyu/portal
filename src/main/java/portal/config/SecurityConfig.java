@@ -40,7 +40,9 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .permitAll()
                 .and()
-            .userDetailsService(userDetailsService());
+            .userDetailsService(userDetailsService())
+            .anonymous()
+            ;
         return http.build();
     }
 

@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
+<head> 
+    <title>Show Menu</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/resources/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data" th:action="@{/upload}">
+        <input type="file" name="file">
+        <input type="submit" title="上传">
+    </form>
+    <img src="upload/2/122_20140709140729_xo0OK">
+
+    <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
+</body>

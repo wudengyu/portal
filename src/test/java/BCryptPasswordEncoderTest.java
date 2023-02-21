@@ -7,5 +7,13 @@ public class BCryptPasswordEncoderTest{
         BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
         System.out.println(encoder.encode("admin"));
     }
+    @Test
+    public void testchar(){
+        //byte[] bytes;
+        byte b=0x1f;
+        System.out.print(b);
+        
+
+    }
 
 }
