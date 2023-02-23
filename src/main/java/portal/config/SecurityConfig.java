@@ -30,8 +30,8 @@ public class SecurityConfig {
             .authorizeHttpRequests()
                 .requestMatchers("/","/resources/**")
                 .permitAll()
-                .and()
-            .authorizeHttpRequests()
+                .requestMatchers("/upload")
+                .anonymous()
                 .anyRequest()
                 //.authenticated()
                 .permitAll()
@@ -41,7 +41,6 @@ public class SecurityConfig {
                 .permitAll()
                 .and()
             .userDetailsService(userDetailsService())
-            .anonymous()
             ;
         return http.build();
     }
