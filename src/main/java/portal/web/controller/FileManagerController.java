@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -24,16 +26,26 @@ public class FileManagerController {
     
     @GetMapping("/browse")
     public ModelAndView browser(HttpServletRequest request,Principal user,@RequestParam(name="path",required = false) String path){
-        ModelAndView mv=new ModelAndView("filemanager/browser");
+        ModelAndView mv=new ModelAndView("filemanager/browse");
         LocalDate ld=LocalDate.now();
+        //List<Map<String,String>> nav=new ArrayList<>();
+        String home=user!=null?"/"+user.getName():"";
         StringBuilder sb=new StringBuilder();
-        String queryString=request.getQueryString();
         if(path==null)
             sb.append("/").append(ld.getYear()).append("/").append(ld.getMonthValue());
         else
             sb.append(path);
-        mv.addObject("servletpath",request.getServletPath());
-        mv.addObject("queryString",request.getQueryString());
+        File directory=new File(request.getServletContext().getRealPath("/upload")+home+sb.toString());
+        System.out.println(directory.getAbsolutePath());
+        File[] files=directory.listFiles();
+        ArrayList<String> urls=new ArrayList<>();
+        String relativepath="/upload"+home+sb.toString();
+        urls.add(relativepath.substring(0,relativepath.lastIndexOf('/')));
+        for(File file:files){
+            urls.add(file.getName());
+        }
+        mv.addObject("relativepath",relativepath);
+        mv.addObject("files", files);
         return mv;
     }
 

@@ -5,8 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <h1>there have picture</h1>
-        <h1 th:text="${servletpath}+'?'+${queryString}"></h1>
-        <a th:href="@{${servletpath}+'?'+${queryString}}">link</a>
+        <h1 th:text="${relativepath}"></h1>
+        <ul>
+            <ol th:each="file:${files}">
+                <img th:src="@{${relativepath}+'/'+${file}}" width="64" height="64">
+                <div th:text="${file.name}"></div>
+            </ol>
+        </ul>
     </body>
 </html>
