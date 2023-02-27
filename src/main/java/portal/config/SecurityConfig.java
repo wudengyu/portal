@@ -29,9 +29,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests()
                 .requestMatchers("/","/resources/**")
-                .permitAll()
-                .requestMatchers("/upload")
-                .anonymous()
+                    .permitAll()
                 .anyRequest()
                 //.authenticated()
                 .permitAll()

@@ -1,5 +1,7 @@
 package portal.web.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,21 +25,22 @@ public class articleController {
     public String getList(Model model,@PathVariable int columnid,@PageableDefault Pageable paging){
         Page<Article> articles=articleRepository.loadByColumnId(columnid,paging);
         model.addAttribute("articles",articles);
-        return "column";
+        return "article/list";
     }
     
     @GetMapping("/edit/{id}")
-    public String editarticle(Model model,@PathVariable int id){
+    public String editarticle(Model model,@PathVariable int id,Principal principal){
         Article article=articleRepository.loadById(id);
         model.addAttribute("article",article);
-        return "article";
+        model.addAttribute("principal",principal);
+        return "article/edit";
     }
 
     @GetMapping("/show/{id}")
     public String showarticle(Model model,@PathVariable int id){
         Article article=articleRepository.loadById(id);
         model.addAttribute("article",article);
-        return "article";
+        return "article/show";
     }
 
 

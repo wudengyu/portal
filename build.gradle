@@ -7,9 +7,9 @@ repositories {
 dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.0.0')
     testImplementation('org.junit.jupiter:junit-jupiter:5.9.1')
-    implementation('org.springframework:spring-webmvc:6.0.3')
-    implementation platform('org.springframework.security:spring-security-bom:6.0.1')
-    implementation platform('org.springframework.data:spring-data-bom:2022.0.0')
+    implementation('org.springframework:spring-webmvc:6.0.5')
+    implementation platform('org.springframework.security:spring-security-bom:6.0.2')
+    implementation platform('org.springframework.data:spring-data-bom:2022.0.1')
     implementation('org.springframework.security:spring-security-web')
     implementation('org.springframework.security:spring-security-config')
     implementation('org.springframework.data:spring-data-jdbc')
@@ -18,4 +18,6 @@ dependencies {
     }
     implementation('org.slf4j:slf4j-simple:2.0.6')
     implementation('org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE')
+    implementation('com.fasterxml.jackson.core:jackson-databind:2.14.2')
+
 }

@@ -7,8 +7,8 @@
     <link th:href="@{/resources/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data" th:action="@{/upload}">
-        <input type="file" name="file">
+    <form method="post" enctype="multipart/form-data" th:action="@{/filemanager/upload}">
+        <input type="file" name="upload">
         <input type="submit" title="上传">
     </form>
     <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>

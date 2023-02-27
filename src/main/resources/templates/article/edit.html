@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
+
+<head>
+    <title>A Simple Page with CKEditor 4</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link th:href="@{/resources/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/resources/ckeditor/ckeditor.js}"></script>
+</head>
+
+<body>
+    <form method="post">
+        <textarea name="editor1" id="editor1" rows="10" cols="80">
+            This is my textarea to be replaced with CKEditor 4.
+        </textarea>
+        <script th:inline="javascript">
+            var editor = CKEDITOR.replace('editor1', {
+                filebrowserBrowseUrl:/*[[@{/file/browse}]]*/'/browser/browse.php?type=Files',
+                filebrowserUploadUrl:/*[[@{/file/upload}]]*/'/uploader/upload.php?type=Files'
+            });
+            editor.on('fileUploadRequest', function (evt) {
+                var xhr = evt.data.fileLoader.xhr;
+                xhr.setRequestHeader(/*[[${_csrf.headerName}]]*/'X-CSRF-TOKEN',/*[[${_csrf.token}]]*/ 'token');
+            });
+        </script>
+    </form>
+</body>
