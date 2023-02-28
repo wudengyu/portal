@@ -5,12 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <h1 th:text="${relativepath}"></h1>
+        <p th:text="${relativepath}"></p>
         <ul>
-            <ol th:each="file:${files}">
-                <img th:src="@{${relativepath}+'/'+${file}}" width="64" height="64">
-                <div th:text="${file.name}"></div>
-            </ol>
+            <li th:each="file:${files}" th:text="${file.filename}">
+                <span th:text="${file.type}"></span>
+            </li>
         </ul>
+
     </body>
 </html>

@@ -2,6 +2,10 @@ package portal.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,30 +23,25 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpServletRequest;
+import portal.business.FileInfo;
 
 @Controller
 @RequestMapping("/file")
 public class FileManagerController {
     
     @GetMapping("/browse")
-    public ModelAndView browser(HttpServletRequest request,Principal user,@RequestParam(name="path",required = false) String path){
+    public ModelAndView browser(HttpServletRequest request,Principal user) throws IOException{
         ModelAndView mv=new ModelAndView("filemanager/browse");
-        LocalDate ld=LocalDate.now();
-        //List<Map<String,String>> nav=new ArrayList<>();
         String home=user!=null?"/"+user.getName():"";
-        StringBuilder sb=new StringBuilder();
+        String path=request.getParameter("path");
         if(path==null)
-            sb.append("/").append(ld.getYear()).append("/").append(ld.getMonthValue());
-        else
-            sb.append(path);
-        File directory=new File(request.getServletContext().getRealPath("/upload")+home+sb.toString());
-        System.out.println(directory.getAbsolutePath());
-        File[] files=directory.listFiles();
-        ArrayList<String> urls=new ArrayList<>();
-        String relativepath="/upload"+home+sb.toString();
-        urls.add(relativepath.substring(0,relativepath.lastIndexOf('/')));
-        for(File file:files){
-            urls.add(file.getName());
+            path="/";
+        String relativepath="/upload"+home+path;
+        File currentpath=new File(request.getServletContext().getRealPath(relativepath));
+        ArrayList<FileInfo> files=new ArrayList<>();
+        for(File file:currentpath.listFiles()){
+            System.out.print(file.getName());
+            files.add(new FileInfo(file.getName(),file.isFile()?0:1));
         }
         mv.addObject("relativepath",relativepath);
         mv.addObject("files", files);
