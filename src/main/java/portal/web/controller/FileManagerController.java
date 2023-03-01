@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,21 +27,46 @@ import portal.business.FileInfo;
 public class FileManagerController {
     
     @GetMapping("/browse")
-    public ModelAndView browser(HttpServletRequest request,Principal user) throws IOException{
+    public ModelAndView browser(HttpServletRequest request,@RequestParam("CKEditorFuncNum") String funcNum,Principal user) throws IOException{
         ModelAndView mv=new ModelAndView("filemanager/browse");
         String home=user!=null?"/"+user.getName():"";
+        String queryString=request.getQueryString();
         String path=request.getParameter("path");
-        if(path==null)
+        if(path==null){
             path="/";
+            queryString+="&path=/";
+        }
         String relativepath="/upload"+home+path;
         File currentpath=new File(request.getServletContext().getRealPath(relativepath));
         ArrayList<FileInfo> files=new ArrayList<>();
         for(File file:currentpath.listFiles()){
-            if(file.isDirectory())
-                files.add(new FileInfo(file.getName(),path,0));
-            else
+            if(!path.equals("/")){
+                FileInfo fileInfo=new FileInfo("返回上级目录", relativepath, 99);
+                Pattern p = Pattern.compile("(?<=path=).*?(?=&|$)");
+                Matcher m = p.matcher(queryString);
+                if(path.lastIndexOf("/")!=0)
+                    fileInfo.setAnchor("?"+m.replaceAll(path.substring(0,path.lastIndexOf('/'))));
+                else
+                    fileInfo.setAnchor("?path=/");
+                files.add(fileInfo);
+            }
+            if(file.isDirectory()){
+                Pattern p = Pattern.compile("(?<=path=).*?(?=&|$)");
+                Matcher m = p.matcher(queryString);
+                if(path.endsWith("/")){
+                    queryString = m.replaceAll(path+file.getName());
+                }else{
+                    queryString = m.replaceAll(path+"/"+file.getName());
+                }
+                FileInfo fileInfo=new FileInfo(file.getName(), relativepath, 0);
+                fileInfo.setAnchor("?"+queryString);
+                files.add(fileInfo);
+            }
+            else{
                 files.add(new FileInfo(file.getName(),relativepath,1));
+            }
         }
+        mv.addObject("funcNum",funcNum);
         mv.addObject("files", files);
         return mv;
     }
