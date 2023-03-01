@@ -2,15 +2,10 @@ package portal.web.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -40,10 +35,11 @@ public class FileManagerController {
         File currentpath=new File(request.getServletContext().getRealPath(relativepath));
         ArrayList<FileInfo> files=new ArrayList<>();
         for(File file:currentpath.listFiles()){
-            System.out.print(file.getName());
-            files.add(new FileInfo(file.getName(),file.isFile()?0:1));
+            if(file.isDirectory())
+                files.add(new FileInfo(file.getName(),path,0));
+            else
+                files.add(new FileInfo(file.getName(),relativepath,1));
         }
-        mv.addObject("relativepath",relativepath);
         mv.addObject("files", files);
         return mv;
     }

@@ -7,8 +7,9 @@
     <body>
         <p th:text="${relativepath}"></p>
         <ul>
-            <li th:each="file:${files}" th:text="${file.filename}">
-                <span th:text="${file.type}"></span>
+            <li th:each="file:${files}">
+                <img th:src="@{${file.picurl}}">
+                <span th:text="${file.filename}"></span>
             </li>
         </ul>
 
