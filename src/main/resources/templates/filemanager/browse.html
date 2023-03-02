@@ -3,26 +3,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script th:inline="javascript">
-            function returnFileUrl(fileRul) {
-                var funcNum = getUrlParam( 'CKEditorFuncNum' );
-                window.opener.CKEDITOR.tools.callFunction(funcNum,fileUrl);
-                window.close();
-            }
-        </script>
     </head>
     <body>
         <p th:text="${relativepath}"></p>
         <ul>
             <li th:each="file:${files}">
-                <a href="javascript:void(0);" th:data-num="${funcNum}" th:data-picurl="${file.picurl}"
-                th:onclick="returnFileUrl(this.getAttribute(data-picurl));" th:if="${file.type}==1">
-                    <img th:src="@{${file.picurl}}" width="64">
+                <a th:data-num="${funcNum}" th:data-picurl="${file.picurl}"
+                th:onclick="window.opener.CKEDITOR.tools.callFunction(this.getAttribute('data-num'),this.getAttribute('data-picurl'));window.close();" th:if="${file.type}==1">
+                    <img th:src="${file.picurl}" width="64">
                     <span th:text="${file.filename}"></span> 
                 </a>
-                <a th:href="@{${file.anchor}}" th:unless="${file.type}==1">
+                <a th:href="${file.anchor}" th:unless="${file.type}==1">
                     <img th:src="@{${file.picurl}}" width="64">
-                    <span th:text="${file.filename}"></span>
+                    <span th:text="${file.filename}"></span> 
                 </a>
             </li>
         </ul>

@@ -28,6 +28,7 @@ public class FileManagerController {
     
     @GetMapping("/browse")
     public ModelAndView browser(HttpServletRequest request,@RequestParam("CKEditorFuncNum") String funcNum,Principal user) throws IOException{
+        System.out.println(request.getPathInfo());
         ModelAndView mv=new ModelAndView("filemanager/browse");
         String home=user!=null?"/"+user.getName():"";
         String queryString=request.getQueryString();
@@ -39,17 +40,17 @@ public class FileManagerController {
         String relativepath="/upload"+home+path;
         File currentpath=new File(request.getServletContext().getRealPath(relativepath));
         ArrayList<FileInfo> files=new ArrayList<>();
+        if(!path.equals("/")){
+            FileInfo fileInfo=new FileInfo("返回上级目录", relativepath, 99);
+            Pattern p = Pattern.compile("(?<=path=).*?(?=&|$)");
+            Matcher m = p.matcher(queryString);
+            if(path.lastIndexOf("/")!=0)
+                fileInfo.setAnchor("?"+m.replaceAll(path.substring(0,path.lastIndexOf('/'))));
+            else
+                fileInfo.setAnchor("?"+m.replaceAll("/"));
+            files.add(fileInfo);
+        }
         for(File file:currentpath.listFiles()){
-            if(!path.equals("/")){
-                FileInfo fileInfo=new FileInfo("返回上级目录", relativepath, 99);
-                Pattern p = Pattern.compile("(?<=path=).*?(?=&|$)");
-                Matcher m = p.matcher(queryString);
-                if(path.lastIndexOf("/")!=0)
-                    fileInfo.setAnchor("?"+m.replaceAll(path.substring(0,path.lastIndexOf('/'))));
-                else
-                    fileInfo.setAnchor("?path=/");
-                files.add(fileInfo);
-            }
             if(file.isDirectory()){
                 Pattern p = Pattern.compile("(?<=path=).*?(?=&|$)");
                 Matcher m = p.matcher(queryString);
@@ -63,7 +64,7 @@ public class FileManagerController {
                 files.add(fileInfo);
             }
             else{
-                files.add(new FileInfo(file.getName(),relativepath,1));
+                files.add(new FileInfo(file.getName(),request.getServletContext().getContextPath()+relativepath,1));
             }
         }
         mv.addObject("funcNum",funcNum);
