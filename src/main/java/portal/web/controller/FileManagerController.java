@@ -28,7 +28,17 @@ public class FileManagerController {
     
     @GetMapping("/browse")
     public ModelAndView browser(HttpServletRequest request,@RequestParam("CKEditorFuncNum") String funcNum,Principal user) throws IOException{
-        System.out.println(request.getPathInfo());
+        System.out.println(request.getServerName());
+        System.out.println(request.getContextPath());
+        System.out.println(request.getRequestURI());
+        System.out.println(request.getRequestURL());
+        System.out.println(request.getServletPath());
+        System.out.println(request.getProtocol());
+        System.out.println(request.getScheme());	
+        System.out.println(request.getServerName());	
+        System.out.println(request.getServerPort());
+        System.out.println(request.getServletContext().getResource("/upload"));
+        System.out.println(request.getServletContext().getServletContextName());
         ModelAndView mv=new ModelAndView("filemanager/browse");
         String home=user!=null?"/"+user.getName():"";
         String queryString=request.getQueryString();
@@ -64,7 +74,7 @@ public class FileManagerController {
                 files.add(fileInfo);
             }
             else{
-                files.add(new FileInfo(file.getName(),request.getServletContext().getContextPath()+relativepath,1));
+                files.add(new FileInfo(file.getName(),request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+relativepath,1));
             }
         }
         mv.addObject("funcNum",funcNum);
