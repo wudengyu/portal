@@ -2,8 +2,8 @@ package portal.business;
 
 public class FileInfo {
 
-    private static String Folder_icon="/images/folder.BMP";
-    private static String Return_icon="/images/return.BMP";
+    private static String Folder_icon="/images/icons8-folder-96.png";
+    private static String Return_icon="/images/icons8-symlink-directory-96.png";
     
     private String path;
     private String filename;
