@@ -9,26 +9,44 @@
 </head>
 
 <body>
-    <nav>
-        <ul class="nav">
-            <li class="nav-item" th:each="item:${menu}" th:classappend="${not #lists.isEmpty(item.child)}?'dropdown'">
-                <a class="nav-link" th:classappend="${not #lists.isEmpty(item.child)}?'dropdown-toggle'"
-                    data-bs-toggle="dropdown" href="#" th:text="${item.text}"></a>
-                <ul class="dropdown-menu" th:if="${not #lists.isEmpty(item.child)}">
-                    <li th:each="childitem:${item.child}">
-                        <a class="dropdown-item" th:href="@{${childitem.url}}" th:text="${childitem.text}"></a>
+    <div class="container-xl">
+        <div class="d-flex justify-content-between">
+            <nav class="nav-bar">
+                <ul class="nav">
+                    <li class="nav-item" th:each="item:${menu}"
+                        th:classappend="${not #lists.isEmpty(item.child)}?'dropdown'">
+                        <a class="nav-link" th:classappend="${not #lists.isEmpty(item.child)}?'dropdown-toggle'"
+                            data-bs-toggle="dropdown" href="#" th:text="${item.text}"></a>
+                        <ul class="dropdown-menu" th:if="${not #lists.isEmpty(item.child)}">
+                            <li th:each="childitem:${item.child}">
+                                <a class="dropdown-item" th:href="@{${childitem.url}}" th:text="${childitem.text}"></a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
-            </li>
-        </ul>
-    </nav>
-    <article>
-        <ul th:each="column:${columns}">
-            <h3 th:text="${column.title}"></h3>
-            <li th:each="article:${column.articlelist}">
-                <a th:href="@{'/article/show/'+${article.id}}" th:text="${article.title}"></a>
-            </li>
-        </ul>
-    </article>
+            </nav>
+            <div>
+                <a type="button" class="btn btn-primary" sec:authorize="not isAuthenticated()" th:href="@{/login}">登录</a>
+                <div class="dropdown-center" sec:authorize="isAuthenticated()">
+                    <a class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img th:src="@{/images/person-circle.svg}">
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Action two</a></li>
+                      <li><a class="dropdown-item" href="#">Action three</a></li>
+                    </ul>
+                  </div>
+            </div>
+        </div>
+        <article>
+            <ul th:each="column:${columns}">
+                <h3 th:text="${column.title}"></h3>
+                <li th:each="article:${column.articlelist}">
+                    <a th:href="@{'/article/show/'+${article.id}}" th:text="${article.title}"></a>
+                </li>
+            </ul>
+        </article>
+    </div>
     <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
 </body>
