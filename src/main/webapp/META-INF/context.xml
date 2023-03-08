@@ -6,7 +6,7 @@
             username="portal"
             password="portal"
             driverClassName="com.mysql.cj.jdbc.Driver"
-            url="jdbc:mysql://172.22.128.1:3306/portal"
+            url="jdbc:mysql://172.18.160.1:3306/portal"
             maxTotal="8"
             maxIdle="4"/>
 </Context>

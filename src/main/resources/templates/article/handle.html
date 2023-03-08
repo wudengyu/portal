@@ -1,0 +1,23 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
+<head> 
+    <title>Show Article</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/resources/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+    <table>
+        <tr th:each="article:${articles}">
+            <td><a th:href="@{'/article/show/'+${article.id}}" th:text="${article.title}"></a></td>
+            <td th:text="${article.lastmodifiedtime}"></td>
+        </tr>
+    </table>
+    <ul>
+        <li th:each="page:${#numbers.sequence(1,articles.totalPages)}">
+            <a th:href="@{'?page='+${page}}" th:text="${page}"></a>
+        </li>
+    </ul>
+    <script th:src="@{/resources/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

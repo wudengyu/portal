@@ -6,11 +6,13 @@ public class Article {
     private int id;
     private int column;
     private String title;
-    private String author;
-    private Date lastmodifiedtime;
-    private User lastmodifieduser;
-    private Date approvetime;
-    private User approver;
+    private String author;//作者
+    private String publisher;//发布者
+    private Date publishtime;//发布时间
+    private String mender;//修改人
+    private Date lastmodifiedtime;//最后修改时间
+    private String approver;//批准人
+    private Date approvetime;//批准时间
     private int status;
     private String content;
 
@@ -43,20 +45,28 @@ public class Article {
         return author;
     }
 
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public Date getPublishtime() {
+        return publishtime;
+    }
+
+    public String getMender() {
+        return mender;
+    }
+
     public Date getLastmodifiedtime() {
         return lastmodifiedtime;
     }
 
-    public User getLastmodifieduser() {
-        return lastmodifieduser;
+    public String getApprover() {
+        return approver;
     }
 
     public Date getApprovetime() {
         return approvetime;
-    }
-
-    public User getApprover() {
-        return approver;
     }
 
     public int getStatus() {
@@ -66,5 +76,7 @@ public class Article {
     public String getContent() {
         return content;
     }
+
+    
 
 }

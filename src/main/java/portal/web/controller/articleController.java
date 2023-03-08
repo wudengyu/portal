@@ -25,9 +25,12 @@ public class articleController {
     public String getList(Model model,@PathVariable int columnid,@PageableDefault Pageable paging){
         Page<Article> articles=articleRepository.loadByColumnId(columnid,paging);
         model.addAttribute("articles",articles);
-        return "article/list";
+        return "article/columnlist";
     }
-    
+    @GetMapping("/edit")
+    public String showpersonarticle(){
+        return "/article/edit";
+    }
     @GetMapping("/edit/{id}")
     public String editarticle(Model model,@PathVariable int id,Principal principal){
         Article article=articleRepository.loadById(id);

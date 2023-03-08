@@ -29,12 +29,14 @@
                 <a type="button" class="btn btn-primary" sec:authorize="not isAuthenticated()" th:href="@{/login}">登录</a>
                 <div class="dropdown-center" sec:authorize="isAuthenticated()">
                     <a class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img th:src="@{/images/person-circle.svg}">
+                        <img th:src="@{/images/person-circle.svg}" width="32">
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Action two</a></li>
-                      <li><a class="dropdown-item" href="#">Action three</a></li>
+                      <li><a class="dropdown-item" href="#">文章编辑</a></li>
+                      <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" href="#">文章管理</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">修改密码</a></li>
+                      <li><a class="dropdown-item" href="#">退出</a></li>
                     </ul>
                   </div>
             </div>
