@@ -1,7 +1,5 @@
 package portal.web.controller;
 
-import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +15,7 @@ import portal.repository.ArticleRepository;
 
 @Controller
 @RequestMapping("/article")
-public class articleController {
+public class articleBrowseController {
     @Autowired
     private ArticleRepository articleRepository;
 
@@ -26,17 +24,6 @@ public class articleController {
         Page<Article> articles=articleRepository.loadByColumnId(columnid,paging);
         model.addAttribute("articles",articles);
         return "article/columnlist";
-    }
-    @GetMapping("/edit")
-    public String showpersonarticle(){
-        return "/article/edit";
-    }
-    @GetMapping("/edit/{id}")
-    public String editarticle(Model model,@PathVariable int id,Principal principal){
-        Article article=articleRepository.loadById(id);
-        model.addAttribute("article",article);
-        model.addAttribute("principal",principal);
-        return "article/edit";
     }
 
     @GetMapping("/show/{id}")

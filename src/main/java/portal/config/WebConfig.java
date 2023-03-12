@@ -8,6 +8,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.format.datetime.DateFormatter;
+import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -100,6 +103,13 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new PageableHandlerMethodArgumentResolver());
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        DateFormatterRegistrar registrar = new DateFormatterRegistrar();
+        registrar.setFormatter(new DateFormatter("yyyy-MM-dd"));
+        registrar.registerFormatters(registry);
     }
 
     @Bean

@@ -1,4 +1,5 @@
-insert users (username,password) values('admin','{bcrypt}$2a$10$cuR/B35c8kSEodDPUWl48.EaX9FVjXjGB22AF/dyP3bBrLwQtVPCa');
+insert users (username,password) values('zhangshan','{bcrypt}$2a$10$cuR/B35c8kSEodDPUWl48.EaX9FVjXjGB22AF/dyP3bBrLwQtVPCa');
+insert into employees (name,phone,username) values('张三','','zhangshan');
 
 INSERT INTO portal.asset_category (code, parent, name, unit, description, code_tax) VALUES ('1', null, '通用设备', null, null, null);
 INSERT INTO portal.asset_category (code, parent, name, unit, description, code_tax) VALUES ('2', null, '专用设备', null, null, null);
@@ -477,3 +478,4 @@ INSERT INTO portal.menu_item (menu_id, text, url, parent) VALUES (1, '三严三�
 INSERT INTO portal.menu_item (menu_id, text, url, parent) VALUES (1, '党建研究', '/article/list/205', 6);
 INSERT INTO portal.menu_item (menu_id, text, url, parent) VALUES (1, '两学一做', '/article/list/215', 6);
 INSERT INTO portal.menu_item (menu_id, text, url, parent) VALUES (1, '党史学习教育', '/article/list/240', 6);
+

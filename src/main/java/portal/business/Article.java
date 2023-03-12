@@ -13,7 +13,7 @@ public class Article {
     private Date lastmodifiedtime;//最后修改时间
     private String approver;//批准人
     private Date approvetime;//批准时间
-    private int status;
+    private ArticleStatus status;
     private String content;
 
     public Article(int id,String title,String author,Date lastmodifiedtime){
@@ -69,7 +69,7 @@ public class Article {
         return approvetime;
     }
 
-    public int getStatus() {
+    public ArticleStatus getStatus() {
         return status;
     }
 

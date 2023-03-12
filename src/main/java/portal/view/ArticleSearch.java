@@ -6,14 +6,14 @@ public class ArticleSearch {
 
     private String title;
     private String publisher;//发布者
-    private Date publishtimestart;//发布时间起
+    private Date publishtimebegin;//发布时间起
     private Date publishtimeend;//发布时间起
     private int status;
 
-    public ArticleSearch(String title, String publisher, Date publishtimestart, Date publishtimeend, int status) {
+    public ArticleSearch(String title, String publisher, Date publishtimebegin, Date publishtimeend, int status) {
         this.title = title;
         this.publisher = publisher;
-        this.publishtimestart = publishtimestart;
+        this.publishtimebegin = publishtimebegin;
         this.publishtimeend = publishtimeend;
         this.status = status;
     }
@@ -34,12 +34,12 @@ public class ArticleSearch {
         this.publisher = publisher;
     }
 
-    public Date getPublishtimestart() {
-        return publishtimestart;
+    public Date getPublishtimebegin() {
+        return publishtimebegin;
     }
 
-    public void setPublishtimestart(Date publishtimestart) {
-        this.publishtimestart = publishtimestart;
+    public void setPublishtimebegin(Date publishtimebegin) {
+        this.publishtimebegin = publishtimebegin;
     }
 
     public Date getPublishtimeend() {

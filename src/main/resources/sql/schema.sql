@@ -27,8 +27,8 @@ create table if not exists employees
     id       int         not null primary key auto_increment,
     name     varchar(10) not null comment '姓名',
     phone    char(11)    null comment '手机号码',
-    username varchar(50) null comment '用户名',
-    position int         not null default 99999 comment '排序权重'
+    username varchar(50) null comment '用户名' references users(username) ,
+    position int not null default 0 comment '排序权重'
 ) comment '员工';
 drop table if exists dept_manager;
 create table if not exists dept_manager
