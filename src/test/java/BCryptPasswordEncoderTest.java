@@ -13,7 +13,7 @@ public class BCryptPasswordEncoderTest{
     @Test
     public void testEncoder(){
         BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
-        System.out.println(encoder.encode("admin"));
+        System.out.println(encoder.encode("123456"));
     }
     @Test
     public void testchar(){
@@ -53,5 +53,4 @@ public class BCryptPasswordEncoderTest{
         System.out.printf("CredentialsNonExpired %s\n",user.isCredentialsNonExpired());
         System.out.printf("Enabled %s\n",user.isEnabled());
     }
-
 }

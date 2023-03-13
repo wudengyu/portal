@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
 import portal.security.CustomUserService;
 
 @Configuration
@@ -28,8 +30,6 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests()
-                .requestMatchers("/","/resources/**")
-                    .permitAll()
                 .requestMatchers("/privated/**")
                     .authenticated()
                 .anyRequest()
@@ -38,6 +38,10 @@ public class SecurityConfig {
             .formLogin()
                 .loginPage("/login")
                 .permitAll()
+                .and()
+            .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
                 .and()
             .userDetailsService(userDetailsService())
             ;
