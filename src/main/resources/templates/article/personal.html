@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
 <head> 
-    <title>Show Article</title> 
+    <title>Personal's Article</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link th:href="@{/resources/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -11,6 +11,7 @@
         <tr th:each="article:${articles}">
             <td><a th:href="@{'/article/show/'+${article.id}}" th:text="${article.title}"></a></td>
             <td th:text="${article.lastmodifiedtime}"></td>
+            <td th:text="${article.status.status}"></td>
         </tr>
     </table>
     <ul th:if="${articles.totalPages>1}">

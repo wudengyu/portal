@@ -40,24 +40,44 @@ public class JdbcArticleRepository implements ArticleRepository {
     }
 
     @Override
-    public List<Article> loadByColumnId(int columnid,int offset,int rows) {
-        return jdbcOperations.query("select aid,title,author,from_unixtime(greatest(posttime,edittime)) as lastmodifiedtime from p8_article where fid=? limit ?,?",new ColumnRowMapper(),columnid,offset,rows);
+    public List<Article> findByColumnId(int columnid,int offset,int rows) {
+        return jdbcOperations.query("select aid,fid,title,author,username,from_unixtime(posttime) as publishtime,from_unixtime(edittime) as lastmodifiedtime from p8_article where fid=? limit ?,?",new ColumnRowMapper(),columnid,offset,rows);
     }
 
     @Override
-    public Page<Article> loadByColumnId(int columnid,Pageable paging) {
-        List<Article> articles=loadByColumnId(columnid,paging.getPageNumber()*paging.getPageSize(),paging.getPageSize());
+    public Page<Article> findByColumnId(int columnid,Pageable paging) {
+        List<Article> articles=findByColumnId(columnid,(paging.getPageNumber()-1)*paging.getPageSize(),paging.getPageSize());
         return new PageImpl<>(articles,paging,countByColumnId(columnid));
+    }
+
+    @Override
+    public int countByUsername(String username) {
+        Integer total=jdbcOperations.queryForObject("select count(*) from p8_article where username=?",Integer.class,username);
+        return total==null?0:total.intValue();
+    }
+
+    @Override
+    public List<Article> findByUsername(String username, int offset, int rows) {
+        return jdbcOperations.query("select aid,fid,title,author,username,from_unixtime(posttime) as publishtime,from_unixtime(edittime) as lastmodifiedtime from p8_article where username=? limit ?,?",new ColumnRowMapper(),username,offset,rows);
+    }
+
+    @Override
+    public Page<Article> findByUsername(String username, Pageable paging) {
+        List<Article> articles=findByUsername(username,(paging.getPageNumber()-1)*paging.getPageSize(),paging.getPageSize());
+        return new PageImpl<>(articles,paging,countByUsername(username));
     }
 
     private static final class ColumnRowMapper implements RowMapper<Article>{
 
         @Override
         public Article mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Article(rs.getInt("aid"), rs.getString("title"),rs.getString("author"),rs.getDate("lastmodifiedtime"));
+            return new Article(rs.getInt("aid"), 
+                rs.getInt("fid"),
+                rs.getString("title"),
+                rs.getString("author"),
+                rs.getString("username"),
+                rs.getDate("publishtime"),
+                rs.getDate("lastmodifiedtime"),2);
         }        
     }
-
-    
-    
 }

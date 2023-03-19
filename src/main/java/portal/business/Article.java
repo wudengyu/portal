@@ -16,11 +16,18 @@ public class Article {
     private ArticleStatus status;
     private String content;
 
-    public Article(int id,String title,String author,Date lastmodifiedtime){
-        this.id=id;
-        this.title=title;
-        this.author=author;
-        this.lastmodifiedtime=lastmodifiedtime;
+    
+
+    public Article(int id, int column, String title, String author, String publisher, Date publishtime, 
+               Date lastmodifiedtime, int statusvalue) {
+        this.id = id;
+        this.column = column;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.publishtime = publishtime;
+        this.lastmodifiedtime = lastmodifiedtime;
+        this.status = ArticleStatus.values()[statusvalue];
     }
 
     public Article(int id,String title,String content){

@@ -33,7 +33,7 @@ public class homeController {
         model.addAttribute("menu", mainmenu);
         List<Column> homepageColumn=columnRepository.findAllLeaf();
         for(Column column:homepageColumn){
-            column.setArticlelist(articleRepository.loadByColumnId(column.getId(), 0, 10));
+            column.setArticlelist(articleRepository.findByColumnId(column.getId(), 0, 10));
         }
         model.addAttribute("columns", homepageColumn);
         return "home";

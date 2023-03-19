@@ -4,7 +4,11 @@ insert into users (username,password) values('lisi','{bcrypt}$2a$10$Wq9.9ojXNFzX
 insert into employees (name,phone,username) values('张三','','zhangshan');
 insert into employees (name,phone,username) values('李四','','lisi');
 insert into authorities values('admin','admin');
-insert into authorities values('lisi','editor')
+insert into authorities values('lisi','editor');
+
+insert into users (username,password)
+select distinct username,'{bcrypt}$2a$10$Wq9.9ojXNFzXCnA8w8Up8.VwSLYP.Vl9eGYgg0WfiybJMovVAGprm' from p8_article where username<>'admin' and username<>''
+
 
 INSERT INTO portal.asset_category (code, parent, name, unit, description, code_tax) VALUES ('1', null, '通用设备', null, null, null);
 INSERT INTO portal.asset_category (code, parent, name, unit, description, code_tax) VALUES ('2', null, '专用设备', null, null, null);

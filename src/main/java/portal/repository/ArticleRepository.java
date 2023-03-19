@@ -10,6 +10,9 @@ import portal.business.Article;
 public interface ArticleRepository {
     Article loadById(int id);
     int countByColumnId(int columnid);
-    List<Article> loadByColumnId(int columnid,int offset,int rows);
-    Page<Article> loadByColumnId(int columnid,Pageable paging);
+    int countByUsername(String username);
+    List<Article> findByColumnId(int columnid,int offset,int rows);
+    List<Article> findByUsername(String username,int offset,int rows);
+    Page<Article> findByColumnId(int columnid,Pageable paging);
+    Page<Article> findByUsername(String username,Pageable paging);
 }

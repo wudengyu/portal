@@ -20,8 +20,8 @@ public class articleBrowseController {
     private ArticleRepository articleRepository;
 
     @GetMapping("/list/{columnid}")
-    public String getList(Model model,@PathVariable int columnid,@PageableDefault Pageable paging){
-        Page<Article> articles=articleRepository.loadByColumnId(columnid,paging);
+    public String getList(Model model,@PathVariable int columnid,@PageableDefault(page=1) Pageable paging){
+        Page<Article> articles=articleRepository.findByColumnId(columnid,paging);
         model.addAttribute("articles",articles);
         return "article/columnlist";
     }
