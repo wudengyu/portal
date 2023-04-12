@@ -1,10 +1,41 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
 <head> 
-    <title>Show Article</title> 
+    <title>Article List by Column</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link th:href="@{/resources/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/resources/js/jquery-3.6.4.js}"></script>
+    <script th:inline="javascript">
+        jQuery(document).ready(function(){
+            var page=$('input[name="page"]');
+            $('button[name="first"]').on('click',function(event){
+                page.val(0);
+                $("form").submit();
+            })
+            $('button[name="previous"]').on('click',function(event){
+                page.val(/*[[${articles.number-1}]]*/);
+                $("form").submit();
+            })
+            $('button[name="next"]').on('click',function(event){
+                page.val(/*[[${articles.number+1}]]*/);
+                $("form").submit();
+            })
+            $('button[name="last"]').on('click',function(event){
+                page.val(/*[[${articles.totalPages-1}]]*/);
+                $("form").submit();
+            })
+            $('button[name="go"]').on('click',function(event){
+                if(parseInt(page.val())<1)
+                    page.val(1);
+                if(parseInt(page.val())>=/*[[${articles.totalPages}]]*/0)
+                    page.val(/*[[${articles.totalPages}]]*/);
+                page.val(parseInt(page.val())-1);
+                $("form").submit();
+            })
+
+        })
+    </script> 
 </head>
 <body>
     <table>
@@ -13,11 +44,19 @@
             <td th:text="${article.lastmodifiedtime}"></td>
         </tr>
     </table>
-    <ul th:if="${articles.totalPages>1}">
-        <li th:each="page:${#numbers.sequence(1,articles.totalPages)}">
-            <a th:href="@{'?page='+${page}}" th:text="${page}"></a>
-        </li>
-    </ul>
+    <form>
+        <span th:text="'第'+${articles.number+1}+'页，共'+${articles.totalPages}+'页'"></span>
+        <button type="button" name="first" th:disabled="${articles.isFirst()}" >首页</button>
+        <button type="button" name="previous" th:disabled="${not articles.hasPrevious()}" >上一页</button>
+        <button type="button" name="next" th:disabled="${not articles.hasNext()}">下一页</button>
+        <button type="button" name="last" th:disabled="${articles.isLast()}">尾页</button>
+        <span>跳转到第</span>
+        <select name="page">
+            <option th:each="pagenumber:${#numbers.sequence(1,articles.totalPages)}" th:value="${pagenumber}" th:text="${pagenumber}"></option>
+        </select>
+        <span>页</span>
+        <button type="button" name="go">Go</button>
+    </form>
     <script th:src="@{/resources/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

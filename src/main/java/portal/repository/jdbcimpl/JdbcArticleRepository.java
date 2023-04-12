@@ -46,7 +46,7 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public Page<Article> findByColumnId(int columnid,Pageable paging) {
-        List<Article> articles=findByColumnId(columnid,(paging.getPageNumber()-1)*paging.getPageSize(),paging.getPageSize());
+        List<Article> articles=findByColumnId(columnid,paging.getPageNumber()*paging.getPageSize(),paging.getPageSize());
         return new PageImpl<>(articles,paging,countByColumnId(columnid));
     }
 
@@ -63,7 +63,7 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public Page<Article> findByUsername(String username, Pageable paging) {
-        List<Article> articles=findByUsername(username,(paging.getPageNumber()-1)*paging.getPageSize(),paging.getPageSize());
+        List<Article> articles=findByUsername(username,paging.getPageNumber()*paging.getPageSize(),paging.getPageSize());
         return new PageImpl<>(articles,paging,countByUsername(username));
     }
 
