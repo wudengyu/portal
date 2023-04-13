@@ -15,4 +15,5 @@ public interface ArticleRepository {
     List<Article> findByUsername(String username,int offset,int rows);
     Page<Article> findByColumnId(int columnid,Pageable paging);
     Page<Article> findByUsername(String username,Pageable paging);
+    List<Article> findByUsernameAndStatus(String username,int status);
 }

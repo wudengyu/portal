@@ -8,7 +8,7 @@
     <script th:src="@{/resources/js/jquery-3.6.4.js}"></script>
     <script th:inline="javascript">
         jQuery(document).ready(function(){
-            var page=$('input[name="page"]');
+            var page=$('select[name="page"]');
             $('button[name="first"]').on('click',function(event){
                 page.val(0);
                 $("form").submit();

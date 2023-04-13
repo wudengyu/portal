@@ -33,7 +33,7 @@
                         <img th:src="@{/images/person-circle.svg}" width="32">
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" th:href="@{/privated/article}">我的文章</a></li>
+                      <li><a class="dropdown-item" th:href="@{/privated/draft}">草稿箱</a></li>
                       <li sec:authorize="hasAuthority('admin')"><a class="dropdown-item" href="#">文章管理</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="#">修改密码</a></li>

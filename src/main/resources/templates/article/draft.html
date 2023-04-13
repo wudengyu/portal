@@ -14,11 +14,6 @@
             <td th:text="${article.status.status}"></td>
         </tr>
     </table>
-    <ul th:if="${articles.totalPages>1}">
-        <li th:each="page:${#numbers.sequence(1,articles.totalPages)}">
-            <a th:href="@{'?page='+${page}}" th:text="${page}"></a>
-        </li>
-    </ul>
     <script th:src="@{/resources/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

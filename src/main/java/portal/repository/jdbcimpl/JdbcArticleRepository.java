@@ -67,6 +67,11 @@ public class JdbcArticleRepository implements ArticleRepository {
         return new PageImpl<>(articles,paging,countByUsername(username));
     }
 
+    @Override
+    public List<Article> findByUsernameAndStatus(String username, int status) {
+        return jdbcOperations.query("select aid,fid,title,author,username,from_unixtime(posttime) as publishtime,from_unixtime(edittime) as lastmodifiedtime from p8_article where username=? and status=?",new ColumnRowMapper(),username,status);
+    }
+
     private static final class ColumnRowMapper implements RowMapper<Article>{
 
         @Override
@@ -80,4 +85,6 @@ public class JdbcArticleRepository implements ArticleRepository {
                 rs.getDate("lastmodifiedtime"),2);
         }        
     }
+
+    
 }
